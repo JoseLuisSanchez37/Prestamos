@@ -1,0 +1,361 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.prestaxadmin.Activities.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:orientation="vertical"
+        android:background="@android:color/white">
+
+        <TextView
+            android:textAppearance="@android:style/TextAppearance.Large"
+            android:text="Nuevo Préstamo"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"/>
+
+        <!-- informacion del cliente-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="10dp">
+
+            <View style="@style/Divider"/>
+
+            <TextView
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cliente"
+                android:layout_marginBottom="10dp"/>
+
+            <EditText
+                android:id="@+id/edt_customer_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/background_edt"
+                android:hint="Nombre"
+                android:maxLines="1"
+                android:maxLength="50"
+                android:inputType="text"
+                android:layout_marginBottom="10dp"
+                android:padding="5dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/edt_folio_number"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/background_edt"
+                    android:hint="Fólio"
+                    android:maxLines="1"
+                    android:maxLength="11"
+                    android:layout_marginBottom="10dp"
+                    android:padding="5dp"
+                    android:inputType="number"
+                    android:layout_marginRight="5dp"/>
+
+                <EditText
+                    android:id="@+id/edt_telephone_number"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="@drawable/background_edt"
+                    android:hint="Teléfono de Contacto"
+                    android:maxLines="1"
+                    android:maxLength="13"
+                    android:inputType="number"
+                    android:layout_marginBottom="10dp"
+                    android:padding="5dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- descripcion del artículo-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="10dp">
+
+            <View style="@style/Divider"/>
+
+            <TextView
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Artículo"
+                android:layout_marginBottom="10dp"/>
+
+            <EditText
+                android:id="@+id/edt_description_product"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/background_edt"
+                android:hint="Descripción"
+                android:inputType="textMultiLine"
+                android:lines="6"
+                android:minLines="4"
+                android:gravity="top|left"
+                android:maxLines="8"
+                android:scrollbars="vertical"
+                android:padding="5dp"
+                android:maxLength="500"
+                android:layout_marginBottom="10dp"/>
+
+            <EditText
+                android:id="@+id/edt_conditions_product"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/background_edt"
+                android:hint="Condiciones"
+                android:inputType="textMultiLine"
+                android:lines="4"
+                android:minLines="2"
+                android:gravity="top|left"
+                android:maxLines="6"
+                android:maxLength="300"
+                android:scrollbars="vertical"
+                android:padding="5dp"
+                android:layout_marginBottom="10dp"/>
+
+            <EditText
+                android:id="@+id/edt_weight_product"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_edt"
+                android:hint="Peso en Gramos"
+                android:maxLines="1"
+                android:maxLength="10"
+                android:layout_marginBottom="10dp"
+                android:padding="5dp"
+                android:inputType="number"
+                android:layout_marginRight="5dp"/>
+
+            <EditText
+                android:id="@+id/edt_amount_product"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_edt"
+                android:hint="Monto del préstamo en (MXN)"
+                android:maxLines="1"
+                android:maxLength="10"
+                android:layout_marginBottom="10dp"
+                android:padding="5dp"
+                android:inputType="number"
+                android:layout_marginRight="5dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Tomar fotografías"
+                android:padding="10dp"
+                android:background="@android:color/white" />
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white">
+
+                <LinearLayout
+                    android:id="@+id/k_layout_new_ad_upload_images"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <ImageView
+                        android:id="@+id/k_layout_new_add_image"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@mipmap/ic_add_image"
+                        android:onClick="takePicture"/>
+
+                    <!-- agregar vistas dinamicamente -->
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+        </LinearLayout>
+
+        <!-- tipo de prestamo -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <View style="@style/Divider"/>
+
+            <TextView
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tipo de Préstamo"
+                android:layout_marginBottom="10dp"/>
+
+            <RadioGroup
+                android:id="@+id/group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:checked="true"
+                    android:id="@+id/rbtn_pay_month"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mensual ilimitado"/>
+
+                <RadioButton
+                    android:id="@+id/rbtn_pay_renovation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Renovación Bimestral"/>
+
+            </RadioGroup>
+
+            <LinearLayout
+                android:id="@+id/layout_mensual"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Fecha del préstamo"
+                    android:background="@android:color/white" />
+
+                <EditText
+                    android:id="@+id/edt_date_start"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_edt"
+                    android:maxLines="1"
+                    android:maxLength="10"
+                    android:layout_marginBottom="10dp"
+                    android:padding="5dp"
+                    android:inputType="numberDecimal"
+                    android:layout_marginRight="5dp"
+                    android:enabled="false"/>
+
+                <TextView
+                    android:id="@+id/txv_message_date_pay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/message_date_pay"
+                    android:background="@android:color/white" />
+
+                <EditText
+                    android:id="@+id/edt_date_to_pay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_edt"
+                    android:hint="dia-mes-año"
+                    android:maxLines="1"
+                    android:maxLength="10"
+                    android:layout_marginBottom="10dp"
+                    android:padding="5dp"
+                    android:inputType="text"
+                    android:layout_marginRight="5dp"
+                    android:enabled="false"/>
+
+                <!-- fecha a renovar -->
+
+                <TextView
+                    android:id="@+id/txv_message_to_renovation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/message_renovation"
+                    android:background="@android:color/white"
+                    android:visibility="gone"/>
+
+                <EditText
+                    android:id="@+id/edt_date_to_renovation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_edt"
+                    android:hint="dia-mes-año"
+                    android:maxLines="1"
+                    android:maxLength="10"
+                    android:layout_marginBottom="10dp"
+                    android:padding="5dp"
+                    android:inputType="text"
+                    android:layout_marginRight="5dp"
+                    android:enabled="false"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <View style="@style/Divider"/>
+
+            <TextView
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Información de depósito"
+                android:layout_marginBottom="10dp"/>
+
+            <EditText
+                android:id="@+id/edt_number_reference"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:padding="5dp"
+                android:inputType="number"
+                android:maxLength="30"
+                android:background="@drawable/background_edt"
+                android:hint="Ingrese número de referencia"/>
+
+        </LinearLayout>
+
+        <Button
+            android:layout_marginTop="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/selector_button"
+            android:textColor="@android:color/white"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textStyle="bold"
+            android:text="Registrar Préstamo"
+            android:onClick="register"/>
+
+    </LinearLayout>
+
+</ScrollView>

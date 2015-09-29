@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/app/libs/gson-2.3.1.jar" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/prestaxadmin/Listeners/ListenerVolleyResponse.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/prestaxadmin/Networking/JSONRequest.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/prestaxadmin/Networking/LoadingDialog.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/prestaxadmin/Networking/RequestType.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/prestaxadmin/Networking/VolleyController.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/prestaxadmin/Networking/VolleyErrorHelper.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/prestaxadmin/Networking/VolleyManager.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/layout_loading_dialog.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/volley" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
+</project>

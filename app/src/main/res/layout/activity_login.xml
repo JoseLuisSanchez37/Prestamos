@@ -1,0 +1,93 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    tools:context=".Login">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:src="@drawable/logo_lgh"
+            android:scaleType="centerInside"
+            android:layout_weight="10"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:text="prestax"
+            android:textStyle="bold"
+            android:textColor="@color/red"
+            android:layout_weight="3"
+            android:gravity="center_horizontal"
+            android:textAppearance="@android:style/TextAppearance.Large"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp">
+
+        <EditText
+            android:id="@+id/edt_user"
+            android:layout_width="240dp"
+            android:layout_height="40dp"
+            android:background="@drawable/background_edt"
+            android:padding="10dp"
+            android:maxLines="1"
+            android:maxLength="20"
+            android:hint="Usuario"
+            android:layout_gravity="center_horizontal"
+            android:textColorHint="@color/gray"/>
+
+        <EditText
+            android:id="@+id/edt_password"
+            android:layout_width="240dp"
+            android:layout_height="40dp"
+            android:background="@drawable/background_edt"
+            android:padding="10dp"
+            android:maxLines="1"
+            android:maxLength="20"
+            android:hint="Contraseña"
+            android:inputType="textPassword"
+            android:layout_gravity="center_horizontal"
+            android:textColorHint="@color/gray"
+            android:layout_marginTop="15dp"/>
+
+        <Button
+            android:layout_marginTop="20dp"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:text="Entrar"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:background="@drawable/selector_button"
+            android:textAppearance="@android:style/TextAppearance.Medium"
+            android:layout_gravity="center_horizontal"
+            android:onClick="login"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight=".1"
+        android:text="Version 1.0"
+        android:textAppearance="@android:style/TextAppearance.Small"
+        android:layout_gravity="center_horizontal"/>
+
+</LinearLayout>

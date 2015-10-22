@@ -65,6 +65,7 @@ public class Login extends Activity implements ListenerVolleyResponse{
                     Intent intent = new Intent(this, MainActivity.class);
                     intent.putExtra(KEY.USER, edt_user.getText().toString());
                     startActivity(intent);
+                    finish();
                 }else{
                     DialogFragmentMessage dialog = DialogFragmentMessage.newInstance(Messages.getResponseFromResultCode(this,
                             response.getInt(KEY.RESULT_CODE)), Messages.ERROR);

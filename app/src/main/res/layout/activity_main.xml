@@ -327,34 +327,128 @@
                 android:textAppearance="@android:style/TextAppearance.Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Información de depósito"
+                android:text="@string/message_references"
                 android:layout_marginBottom="10dp"/>
 
-            <EditText
-                android:id="@+id/edt_number_reference"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:padding="5dp"
-                android:inputType="number"
-                android:maxLength="30"
-                android:background="@drawable/background_edt"
-                android:hint="Ingrese número de referencia"/>
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="9"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/edt_number_reference_0"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:padding="5dp"
+                        android:inputType="number"
+                        android:maxLength="30"
+                        android:background="@drawable/background_edt"
+                        android:hint="@string/number_reference"
+                        android:layout_marginBottom="10dp"/>
+
+                    <EditText
+                        android:id="@+id/edt_number_reference_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:padding="5dp"
+                        android:inputType="number"
+                        android:maxLength="30"
+                        android:background="@drawable/background_edt"
+                        android:hint="@string/number_reference"
+                        android:visibility="gone"
+                        android:layout_marginBottom="10dp"/>
+
+                    <EditText
+                        android:id="@+id/edt_number_reference_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:padding="5dp"
+                        android:inputType="number"
+                        android:maxLength="30"
+                        android:background="@drawable/background_edt"
+                        android:hint="@string/number_reference"
+                        android:visibility="gone"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/img_more_references"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/ic_add_image"/>
+
+                    <ImageView
+                        android:id="@+id/img_less_references"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/ic_less"
+                        android:visibility="gone"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
 
-        <Button
-            android:layout_marginTop="16dp"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/selector_button"
-            android:textColor="@android:color/white"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:textStyle="bold"
-            android:text="Registrar Préstamo"
-            android:onClick="register"/>
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/selector_button"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:layout_marginRight="10dp"
+                android:text="Salir"
+                android:onClick="exit"/>
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/selector_button"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:layout_marginRight="10dp"
+                android:text="Registrar Préstamo"
+                android:onClick="register"/>
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/selector_button"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:text="Consultar folio"
+                android:paddingRight="5dp"
+                android:paddingLeft="5dp"
+                android:onClick="search"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 

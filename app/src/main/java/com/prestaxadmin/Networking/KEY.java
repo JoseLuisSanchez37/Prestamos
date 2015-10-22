@@ -25,7 +25,9 @@ public class KEY {
     public static final String DATE_START = "date_start";
     public static final String DATE_END = "date_pay_or_renovation";
 
-    public static final String NUMBER_REFERENCE = "number_reference";
+    public static final String NUMBER_REFERENCE_0 = "number_reference_0";
+    public static final String NUMBER_REFERENCE_1 = "number_reference_1";
+    public static final String NUMBER_REFERENCE_2 = "number_reference_2";
 
 }
 

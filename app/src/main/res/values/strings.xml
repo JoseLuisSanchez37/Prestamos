@@ -4,15 +4,17 @@
     <!-- Volley Error Helper -->
     <string name="generic_server_down">Servicio no disponible</string>
     <string name="generic_error">Error al conectar con el servicio</string>
-    <string name="no_internet">No existe conexión a Internet</string>
+    <string name="no_internet">No hay conexión a Internet</string>
     <string name="title_activity_main">MainActivity</string>
 
     <!-- Error messages -->
     <string name="empty_field">El campo no puede ir vacío</string>
     <string name="title_activity_result">Result</string>
 
-    <string name="message_renovation">Fecha de renovación de prestamo</string>
+    <string name="message_renovation">Fecha de renovación del préstamo</string>
     <string name="message_date_pay">Fecha de renovación del pago</string>
+
+    <string name="message_date_to_pay">Fechas de pago</string>
 
     <!-- Messages server-->
     <string name="succes_login">Usuario correcto</string>
@@ -21,10 +23,13 @@
     <string name="provider_already_register">El folio a registrar, ya se encuentra en la base de datos</string>
     <string name="provider_register_succesfull">Los datos se han guardado correctamente</string>
     <string name="provider_insert_error">Ocurrio un error al insertar los datos</string>
+    <string name="folio_exist">La contraseña del folio es</string>
+    <string name="folio_not_found">El folio no se encuentra en la base datos</string>
 
     <!-- Messages warning-->
     <string name="are_you_sure_to_quit">Estas seguro de que deseas salir?</string>
     <string name="take_a_picture">Debes tomar al menos una fotografía</string>
+    <string name="number_reference">Número de referencia</string>
 
     <!-- Title messages-->
     <string name="quit">Cerrar sesión</string>
@@ -39,5 +44,7 @@
 
     <string name="folio">Folio</string>
     <string name="password">Contraseña</string>
+
+    <string name="message_references">Referencia(s) bancaria(s)</string>
 
 </resources>

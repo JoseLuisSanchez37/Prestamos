@@ -24,6 +24,10 @@ public class Messages {
                 return context.getString(R.string.provider_insert_error);
             case 12:
                 return context.getString(R.string.provider_already_register);
+            case 40:
+                return context.getString(R.string.folio_exist);
+            case 41:
+                return context.getString(R.string.folio_not_found);
             default:
                 return context.getString(R.string.error_unknow);
         }

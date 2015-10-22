@@ -5,7 +5,8 @@ package com.prestaxadmin.Networking;
  */
 public enum RequestType {
     SIGN_IN     ("login"),
-    REGISTER    ("register");
+    REGISTER    ("register"),
+    SEARCH      ("searchwithoutpassword");
 
     private final String method;
 

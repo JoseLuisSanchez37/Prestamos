@@ -11,10 +11,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnLongClickListener;
+import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -49,7 +51,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class MainActivity extends Activity implements
         OnLongClickListener,
         RadioGroup.OnCheckedChangeListener,
-        ListenerVolleyResponse{
+        ListenerVolleyResponse,
+        OnClickListener{
 
     private static final int SIZE_THUMB = 120;
     private static final int REQUEST_CODE_CAMERA = 1;
@@ -57,13 +60,12 @@ public class MainActivity extends Activity implements
     private int TAG_ID = 1;
     private String type_provider = "1";
 
-    private ImageView add_picture;
+    private ImageView add_picture, more_references, less_references;
     private LinearLayout layout_images;
 
     private String img_path;
     private LayoutInflater inflater;
     private Map<String, String> map_photos;
-
 
     private EditText edt_customer_name,
             edt_folio_number,
@@ -74,7 +76,9 @@ public class MainActivity extends Activity implements
             edt_amount_product,
             edt_date_start,
             edt_date_to_pay,
-            edt_number_reference,
+            edt_number_reference_0,
+            edt_number_reference_1,
+            edt_number_reference_2,
             edt_date_to_renovation;
 
     private RadioButton rbtn_pay_month,
@@ -82,7 +86,7 @@ public class MainActivity extends Activity implements
 
     private RadioGroup group;
 
-    private TextView txv_message_renovation;
+    private TextView txv_message_renovation, txv_message_date_pay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,7 +156,7 @@ public class MainActivity extends Activity implements
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         Date date = c.getTime();
 
-        if(date.getDay() > 30){
+        if(c.get(Calendar.DAY_OF_MONTH) > 30){
             date.setMonth(date.getMonth() + months);
             date.setDate(1);
         }else{
@@ -188,6 +192,8 @@ public class MainActivity extends Activity implements
 
         layout_images = (LinearLayout) findViewById(R.id.k_layout_new_ad_upload_images);
         add_picture = (ImageView) findViewById(R.id.k_layout_new_add_image);
+        more_references = (ImageView) findViewById(R.id.img_more_references);
+        less_references = (ImageView) findViewById(R.id.img_less_references);
         edt_customer_name = (EditText) findViewById(R.id.edt_customer_name);
         edt_folio_number = (EditText) findViewById(R.id.edt_folio_number);
         edt_telephone_number = (EditText) findViewById(R.id.edt_telephone_number);
@@ -197,8 +203,12 @@ public class MainActivity extends Activity implements
         edt_amount_product = (EditText) findViewById(R.id.edt_amount_product);
         edt_date_start = (EditText) findViewById(R.id.edt_date_start);
         edt_date_to_pay = (EditText) findViewById(R.id.edt_date_to_pay);
-        edt_number_reference = (EditText) findViewById(R.id.edt_number_reference);
+        edt_number_reference_0 = (EditText) findViewById(R.id.edt_number_reference_0);
+        edt_number_reference_1 = (EditText) findViewById(R.id.edt_number_reference_1);
+        edt_number_reference_2 = (EditText) findViewById(R.id.edt_number_reference_2);
         edt_date_to_renovation = (EditText) findViewById(R.id.edt_date_to_renovation);
+
+        txv_message_date_pay = (TextView) findViewById(R.id.txv_message_date_pay);
 
         rbtn_pay_month = (RadioButton) findViewById(R.id.rbtn_pay_month);
         rbtn_pay_renovation = (RadioButton) findViewById(R.id.rbtn_pay_renovation);
@@ -208,6 +218,8 @@ public class MainActivity extends Activity implements
         txv_message_renovation = (TextView) findViewById(R.id.txv_message_to_renovation);
 
         group.setOnCheckedChangeListener(this);
+        more_references.setOnClickListener(this);
+        less_references.setOnClickListener(this);
 
         edt_date_start.setText(getDate());
         edt_date_to_pay.setText(getDateToPay(1));
@@ -217,11 +229,12 @@ public class MainActivity extends Activity implements
     @Override
     public void onCheckedChanged(RadioGroup radioGroup, int i) {
         if(rbtn_pay_month.isChecked()){
-            txv_message_renovation.setVisibility(View.GONE);
-            edt_date_to_renovation.setVisibility(View.GONE);
+                txv_message_renovation.setVisibility(View.GONE);
+                edt_date_to_renovation.setVisibility(View.GONE);
 
-            edt_date_to_pay.setText(getDateToPay(1));
-            type_provider = "1";
+                edt_date_to_pay.setText(getDateToPay(1));
+                txv_message_date_pay.setText(getString(R.string.message_date_pay));
+                type_provider = "1";
 
         } else if(rbtn_pay_renovation.isChecked()) {
             txv_message_renovation.setVisibility(View.VISIBLE);
@@ -229,61 +242,61 @@ public class MainActivity extends Activity implements
 
             edt_date_to_pay.setText(getDateToPay(1));
             edt_date_to_renovation.setText(getDateToPay(2));
+            txv_message_date_pay.setText(getString(R.string.message_date_to_pay));
             type_provider = "2";
         }
     }
 
     @Override
-    public void onBackPressed(){
-        new AlertDialog.Builder(this)
-                .setTitle(getString(R.string.quit))
-                .setMessage(getString(R.string.are_you_sure_to_quit))
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent closeSession = new Intent(MainActivity.this, Login.class);
-                        startActivity(closeSession);
-                        finish();
-                    }
-                })
-                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // do nothing
-                    }
-                })
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .show();
-    }
+    public void onBackPressed(){ }
 
     private boolean validateFields(){
         if(edt_folio_number.getText().toString().isEmpty()){
             edt_folio_number.setError(getString(R.string.empty_field));
+            edt_folio_number.requestFocus();
             return false;
         }else if(edt_customer_name.getText().toString().isEmpty()){
             edt_customer_name.setError(getString(R.string.empty_field));
+            edt_customer_name.requestFocus();
             return false;
         }else if(edt_telephone_number.getText().toString().isEmpty()){
             edt_telephone_number.setError(getString(R.string.empty_field));
+            edt_telephone_number.requestFocus();
             return false;
         }else if(edt_description_product.getText().toString().isEmpty()) {
             edt_description_product.setError(getString(R.string.empty_field));
+            edt_description_product.requestFocus();
             return false;
         }else if(edt_condition_product.getText().toString().isEmpty()){
             edt_condition_product.setError(getString(R.string.empty_field));
+            edt_condition_product.requestFocus();
             return false;
         }else if(edt_weight_product.getText().toString().isEmpty()){
             edt_weight_product.setError(getString(R.string.empty_field));
+            edt_weight_product.requestFocus();
             return false;
         }else if(edt_amount_product.getText().toString().isEmpty()){
             edt_amount_product.setError(getString(R.string.empty_field));
+            edt_amount_product.requestFocus();
             return false;
         }else if(edt_date_to_pay.getText().toString().isEmpty()){
             edt_date_to_pay.setError(getString(R.string.empty_field));
+            edt_date_to_pay.requestFocus();
             return false;
         }else if(map_photos.isEmpty()){
             Toast.makeText(this, getString(R.string.take_a_picture), Toast.LENGTH_LONG).show();
             return false;
-        }else if(edt_number_reference.getText().toString().isEmpty()){
-            edt_number_reference.setError(getString(R.string.empty_field));
+        }else if(edt_number_reference_0.getText().toString().isEmpty()){
+            edt_number_reference_0.setError(getString(R.string.empty_field));
+            edt_number_reference_0.requestFocus();
+            return false;
+        }else if(edt_number_reference_1.getText().toString().isEmpty() & edt_number_reference_1.getVisibility() == View.VISIBLE){
+            edt_number_reference_1.setError(getString(R.string.empty_field));
+            edt_number_reference_1.requestFocus();
+            return false;
+        }else if(edt_number_reference_2.getText().toString().isEmpty() & edt_number_reference_2.getVisibility() == View.VISIBLE){
+            edt_number_reference_2.setError(getString(R.string.empty_field));
+            edt_number_reference_2.requestFocus();
             return false;
         }else{
             return true;
@@ -303,7 +316,16 @@ public class MainActivity extends Activity implements
         data.put(KEY.AMOUNT,            edt_amount_product.getText().toString());
         data.put(KEY.DATE_END,          edt_date_to_pay.getText().toString());
         data.put(KEY.TYPE_PROVIDER,     type_provider);
-        data.put(KEY.NUMBER_REFERENCE,  edt_number_reference.getText().toString());
+        data.put(KEY.NUMBER_REFERENCE_0,edt_number_reference_0.getText().toString());
+
+        if(!edt_number_reference_1.getText().toString().isEmpty() & edt_number_reference_1.getVisibility() == View.VISIBLE){
+            data.put(KEY.NUMBER_REFERENCE_1,edt_number_reference_1.getText().toString());
+        }
+
+        if(!edt_number_reference_2.getText().toString().isEmpty() & edt_number_reference_2.getVisibility() == View.VISIBLE){
+            data.put(KEY.NUMBER_REFERENCE_2,edt_number_reference_2.getText().toString());
+        }
+
         data.put(KEY.DATE_START,        getDate());
 
         ArrayList<String> array = convertMapToArrayList();
@@ -345,9 +367,16 @@ public class MainActivity extends Activity implements
                     String password = response.getString(KEY.PASSWORD);
                     DialogFragmentMessage dialog = DialogFragmentMessage.newInstanceWithCredentials(message, Messages.OK, password);
                     dialog.show(getFragmentManager(), DialogFragmentMessage.TAG);
+
+                }else if(response.getInt(KEY.RESULT_CODE) == 41){
+                    String message = Messages.getResponseFromResultCode(this, response.getInt(KEY.RESULT_CODE));
+                    DialogFragmentMessage dialog = DialogFragmentMessage.newInstance(message, Messages.ERROR);
+                    dialog.show(getFragmentManager(), DialogFragmentMessage.TAG);
+
                 }else{
                     String message = Messages.getResponseFromResultCode(this, response.getInt(KEY.RESULT_CODE));
-                    DialogFragmentMessage dialog = DialogFragmentMessage.newInstance(message, Messages.OK);
+                    String password = response.getString(KEY.PASSWORD);
+                    DialogFragmentMessage dialog = DialogFragmentMessage.newInstanceWithCredentials(message, Messages.OK, password);
                     dialog.show(getFragmentManager(), DialogFragmentMessage.TAG);
                 }
             }else if(response.has(KEY.ERROR)){
@@ -366,4 +395,68 @@ public class MainActivity extends Activity implements
         VolleyManager.getInstance().sendRequest(requestType, params);
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.img_more_references:
+                if (edt_number_reference_1.getVisibility() == View.VISIBLE) {
+                    edt_number_reference_2.setVisibility(View.VISIBLE);
+
+                    more_references.setVisibility(View.GONE);
+                    less_references.setVisibility(View.VISIBLE);
+
+                } else if (edt_number_reference_1.getVisibility() == View.GONE) {
+                    edt_number_reference_1.setVisibility(View.VISIBLE);
+
+                    more_references.setVisibility(View.VISIBLE);
+                    less_references.setVisibility(View.VISIBLE);
+                }
+                break;
+            case R.id.img_less_references:
+                if(edt_number_reference_2.getVisibility() == View.VISIBLE){
+                    edt_number_reference_2.setVisibility(View.GONE);
+
+                    more_references.setVisibility(View.VISIBLE);
+                    less_references.setVisibility(View.VISIBLE);
+
+                } else if(edt_number_reference_2.getVisibility() == View.GONE){
+                    edt_number_reference_1.setVisibility(View.GONE);
+
+                    more_references.setVisibility(View.VISIBLE);
+                    less_references.setVisibility(View.GONE);
+                }
+                break;
+        }
+    }
+
+    public void search(View view){
+        if(!edt_folio_number.getText().toString().isEmpty()){
+            HashMap<String, String> data = new HashMap<>();
+            data.put(KEY.FOLIO, edt_folio_number.getText().toString());
+            sendRequest(RequestType.SEARCH, data);
+        }else{
+            edt_folio_number.setError(getString(R.string.empty_field));
+            edt_folio_number.requestFocus();
+        }
+    }
+
+    public void exit(View view){
+        new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.quit))
+                .setMessage(getString(R.string.are_you_sure_to_quit))
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent closeSession = new Intent(MainActivity.this, Login.class);
+                        startActivity(closeSession);
+                        finish();
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
 }

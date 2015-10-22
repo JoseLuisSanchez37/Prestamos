@@ -54,7 +54,7 @@ public class VolleyManager implements
         progres = new LoadingDialog(activity);
         progres.show();
         JSONRequest jsonRequest = new JSONRequest(Request.Method.POST, API, params, this, this);
-        jsonRequest.setRetryPolicy(new DefaultRetryPolicy(10000, 1, 0.5f));
+        jsonRequest.setRetryPolicy(new DefaultRetryPolicy(10000, 2, 0.5f));
         try {
             Log.v("params", jsonRequest.getParams().toString());
         } catch (AuthFailureError authFailureError) {
@@ -65,6 +65,7 @@ public class VolleyManager implements
 
     @Override
     public void onResponse(JSONObject response) {
+        Log.v("onResponse", response.toString());
         progres.dismiss();
         listener.onResponse(response);
     }

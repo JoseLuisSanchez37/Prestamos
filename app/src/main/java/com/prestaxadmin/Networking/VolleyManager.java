@@ -22,7 +22,7 @@ public class VolleyManager implements
         Response.Listener<JSONObject>,
         Response.ErrorListener{
 
-
+    //private static final String API = "http://prestax.260mb.net/prestamos/prestamos.php";
     private static final String API = "http://otakulife.co/prestamos/prestamos.php";
 
     private static VolleyManager volleyManager;
@@ -54,7 +54,7 @@ public class VolleyManager implements
         progres = new LoadingDialog(activity);
         progres.show();
         JSONRequest jsonRequest = new JSONRequest(Request.Method.POST, API, params, this, this);
-        jsonRequest.setRetryPolicy(new DefaultRetryPolicy(10000, 2, 0.5f));
+        jsonRequest.setRetryPolicy(new DefaultRetryPolicy(20000, 1, 0.5f));
         try {
             Log.v("params", jsonRequest.getParams().toString());
         } catch (AuthFailureError authFailureError) {

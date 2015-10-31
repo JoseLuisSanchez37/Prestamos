@@ -31,6 +31,7 @@ public class JSONRequest extends Request<JSONObject> {
         super(method, url, errorListener);
         this.listener = responseListener;
         this.params = params;
+        setShouldCache(false);
     }
 
     protected Map<String, String> getParams() throws AuthFailureError {

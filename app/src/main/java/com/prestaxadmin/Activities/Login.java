@@ -79,4 +79,9 @@ public class Login extends Activity implements ListenerVolleyResponse{
         }
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        //No call for super(). Bug on API Level > 11.
+    }
+
 }

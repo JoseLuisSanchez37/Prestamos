@@ -484,4 +484,10 @@ public class MainActivity extends Activity implements
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        //No call for super(). Bug on API Level > 11.
+    }
+
 }

@@ -5,12 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.prestaxadmin.Fragments.DialogFragmentMessage;
 import com.prestaxadmin.Listeners.ListenerVolleyResponse;
 import com.prestaxadmin.Networking.KEY;
-import com.prestaxadmin.Networking.Messages;
+import com.prestaxadmin.Networking.RESULTCODE;
 import com.prestaxadmin.Networking.RequestType;
 import com.prestaxadmin.Networking.VolleyManager;
 import com.prestaxadmin.R;
@@ -61,18 +60,18 @@ public class Login extends Activity implements ListenerVolleyResponse{
     public void onResponse(JSONObject response) {
         try {
             if (response.has(KEY.RESULT_CODE)){
-                if(response.getInt(KEY.RESULT_CODE) == Messages.OK){
+                if(response.getInt(KEY.RESULT_CODE) == RESULTCODE.LOGIN_SUCCESS){
                     Intent intent = new Intent(this, MainActivity.class);
                     intent.putExtra(KEY.USER, edt_user.getText().toString());
                     startActivity(intent);
                     finish();
                 }else{
-                    DialogFragmentMessage dialog = DialogFragmentMessage.newInstance(Messages.getResponseFromResultCode(this,
-                            response.getInt(KEY.RESULT_CODE)), Messages.ERROR);
+                    String message = RESULTCODE.getMessage(this, response.getInt(KEY.RESULT_CODE));
+                    DialogFragmentMessage dialog = DialogFragmentMessage.newInstance(message, RESULTCODE.FAILED);
                     dialog.show(getFragmentManager(), DialogFragmentMessage.TAG);
                 }
             }else if(response.has(KEY.ERROR)){
-                DialogFragmentMessage dialog = DialogFragmentMessage.newInstance(response.getString(KEY.ERROR), Messages.ERROR);
+                DialogFragmentMessage dialog = DialogFragmentMessage.newInstance(response.getString(KEY.ERROR), RESULTCODE.FAILED);
                 dialog.show(getFragmentManager(), DialogFragmentMessage.TAG);
             }
         } catch (JSONException e) {

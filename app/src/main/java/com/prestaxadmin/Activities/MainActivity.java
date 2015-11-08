@@ -11,7 +11,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,7 +27,7 @@ import android.widget.Toast;
 import com.prestaxadmin.Fragments.DialogFragmentMessage;
 import com.prestaxadmin.Listeners.ListenerVolleyResponse;
 import com.prestaxadmin.Networking.KEY;
-import com.prestaxadmin.Networking.Messages;
+import com.prestaxadmin.Networking.RESULTCODE;
 import com.prestaxadmin.Networking.RequestType;
 import com.prestaxadmin.Networking.VolleyManager;
 import com.prestaxadmin.R;
@@ -361,26 +360,52 @@ public class MainActivity extends Activity implements
     @Override
     public void onResponse(JSONObject response) {
         try {
+
             if (response.has(KEY.RESULT_CODE)){
-                if(response.getInt(KEY.RESULT_CODE) == 10){
-                    String message = Messages.getResponseFromResultCode(this, response.getInt(KEY.RESULT_CODE));
+
+                int code = response.getInt(KEY.RESULT_CODE);
+
+                if(code == RESULTCODE.REGISTER_FOLIO_SUCCESS || code == RESULTCODE.REGISTER_FOLIO_ALREADY){
+                    String message = RESULTCODE.getMessage(this, code);
                     String password = response.getString(KEY.PASSWORD);
-                    DialogFragmentMessage dialog = DialogFragmentMessage.newInstanceWithCredentials(message, Messages.OK, password);
+                    DialogFragmentMessage dialog = DialogFragmentMessage.newInstanceWithCredentials(message, RESULTCODE.SUCCESS, password);
                     dialog.show(getFragmentManager(), DialogFragmentMessage.TAG);
 
-                }else if(response.getInt(KEY.RESULT_CODE) == 41){
-                    String message = Messages.getResponseFromResultCode(this, response.getInt(KEY.RESULT_CODE));
-                    DialogFragmentMessage dialog = DialogFragmentMessage.newInstance(message, Messages.ERROR);
+                }else if (code == RESULTCODE.REGISTER_FOLIO_FAILED){
+                    String message = RESULTCODE.getMessage(this, code);
+                    DialogFragmentMessage dialog = DialogFragmentMessage.newInstance(message, RESULTCODE.FAILED);
                     dialog.show(getFragmentManager(), DialogFragmentMessage.TAG);
 
-                }else{
-                    String message = Messages.getResponseFromResultCode(this, response.getInt(KEY.RESULT_CODE));
+                }else if(code == RESULTCODE.SEARCH_FOLIO_WITHOUT_SUCCESS){
+                    String message = RESULTCODE.getMessage(this, code);
                     String password = response.getString(KEY.PASSWORD);
-                    DialogFragmentMessage dialog = DialogFragmentMessage.newInstanceWithCredentials(message, Messages.OK, password);
+                    String reference = response.getString(KEY.PAYMENT_REFERENCE);
+                    DialogFragmentMessage dialog = DialogFragmentMessage.newInstanceWithCredentialsAndReference(message, RESULTCODE.SUCCESS, edt_folio_number.getText().toString(),password, reference);
                     dialog.show(getFragmentManager(), DialogFragmentMessage.TAG);
+
+                }else if(code == RESULTCODE.SEARCH_FOLIO_WITHOUT_NOT_FOUND){
+                    String message = RESULTCODE.getMessage(this, code);
+                    DialogFragmentMessage dialog = DialogFragmentMessage.newInstance(message, RESULTCODE.FAILED);
+                    dialog.show(getFragmentManager(), DialogFragmentMessage.TAG);
+
+                }else if (code == RESULTCODE.REGISTER_PAY_REFERENCE_SUCCESS){
+                    DialogFragmentMessage dialogFragmentMessage = (DialogFragmentMessage)getFragmentManager().findFragmentByTag(DialogFragmentMessage.TAG);
+                    if (dialogFragmentMessage != null && dialogFragmentMessage.isVisible()){
+                        dialogFragmentMessage.dismiss();
+                    }
+                    String message = RESULTCODE.getMessage(this, code);
+                    DialogFragmentMessage dialog = DialogFragmentMessage.newInstance(message, RESULTCODE.SUCCESS);
+                    dialog.show(getFragmentManager(), DialogFragmentMessage.TAG);
+
+                }else if (code == RESULTCODE.REGISTER_PAY_REFERENCE_FAILED){
+                    String message = RESULTCODE.getMessage(this, code);
+                    DialogFragmentMessage dialog = DialogFragmentMessage.newInstance(message, RESULTCODE.FAILED);
+                    dialog.show(getFragmentManager(), DialogFragmentMessage.TAG);
+
                 }
+
             }else if(response.has(KEY.ERROR)){
-                DialogFragmentMessage dialog = DialogFragmentMessage.newInstance(response.getString(KEY.ERROR), Messages.ERROR);
+                DialogFragmentMessage dialog = DialogFragmentMessage.newInstance(response.getString(KEY.ERROR), RESULTCODE.FAILED);
                 dialog.show(getFragmentManager(), DialogFragmentMessage.TAG);
             }
         } catch (JSONException e) {

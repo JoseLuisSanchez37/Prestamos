@@ -29,7 +29,7 @@ public class VolleyManager implements
     private Activity activity;
     private RequestType request;
     private ListenerVolleyResponse listener;
-    private LoadingDialog progres;
+    private LoadingDialog progress;
 
     public static synchronized VolleyManager getInstance(){
         if (volleyManager == null){
@@ -51,8 +51,8 @@ public class VolleyManager implements
     public void sendRequest(RequestType request, Map<String, String> params){
         this.request = request;
         params.put(KEY.REQUEST, request.getMethod());
-        progres = new LoadingDialog(activity);
-        progres.show();
+        progress = new LoadingDialog(activity);
+        progress.show();
         JSONRequest jsonRequest = new JSONRequest(Request.Method.POST, API, params, this, this);
         jsonRequest.setRetryPolicy(new DefaultRetryPolicy(20000, 1, 0.5f));
         try {
@@ -66,14 +66,14 @@ public class VolleyManager implements
     @Override
     public void onResponse(JSONObject response) {
         Log.v("onResponse", response.toString());
-        progres.dismiss();
+        progress.dismiss();
         listener.onResponse(response);
     }
 
     @Override
     public void onErrorResponse(VolleyError error) {
         try {
-            progres.dismiss();
+            progress.dismiss();
             JSONObject jsonError = new JSONObject();
             jsonError.put(KEY.ERROR, VolleyErrorHelper.getMessage(error, activity));
             listener.onResponse(jsonError);

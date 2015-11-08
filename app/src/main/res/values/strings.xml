@@ -16,7 +16,7 @@
 
     <string name="message_date_to_pay">Fechas de pago</string>
 
-    <!-- Messages server-->
+    <!-- RESULTCODE server-->
     <string name="succes_login">Usuario correcto</string>
     <string name="error_credentials">Usuario y/o contraseña incorrectos</string>
     <string name="error_unknow">Error desconocido</string>
@@ -26,7 +26,7 @@
     <string name="folio_exist">La contraseña del folio es</string>
     <string name="folio_not_found">El folio no se encuentra en la base datos</string>
 
-    <!-- Messages warning-->
+    <!-- RESULTCODE warning-->
     <string name="are_you_sure_to_quit">Estas seguro de que deseas salir?</string>
     <string name="take_a_picture">Debes tomar al menos una fotografía</string>
     <string name="number_reference">Número de referencia</string>
@@ -46,5 +46,12 @@
     <string name="password">Contraseña</string>
 
     <string name="message_references">Referencia(s) bancaria(s)</string>
+
+    <!-- messages for payment reference -->
+    <string name="message_input_payment_reference">Ingrese la referencia de pago</string>
+    <string name="message_show_payment_reference">Referencia de pago</string>
+    <string name="message_invalid_payment_reference">La referencia ingresada no es válida</string>
+    <string name="payment_reference_register_failed">No se pudo insertar la referencia de pago en la base de datos</string>
+    <string name="payment_reference_register_success">Se ha asignado la referencia de pago correctamente</string>
 
 </resources>
